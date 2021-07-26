@@ -1,0 +1,11 @@
+variable "vpc_cidr_block" {}
+variable "environment" {}
+variable "name_tag" {}
+variable "availability_zone_a" {}
+variable "availability_zone_b" {}
+variable "subnet_cidr_block_public_a" {}
+variable "subnet_cidr_block_public_b" {}
+variable "subnet_cidr_block_private_a" {}
+variable "subnet_cidr_block_private_b" {}
+variable "subnet_cidr_block_private_a2" {}
+variable "subnet_cidr_block_private_b2" {}
