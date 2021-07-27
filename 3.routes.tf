@@ -10,8 +10,8 @@ resource "aws_route_table" "private" {
 ############# private route table with nat #######################
 ######### create elastic ip
 resource "aws_eip" "eip" {
-  vpc      = true
-    tags = {
+  vpc = true
+  tags = {
     Name = "${var.name_tag}-${var.environment}-eip"
   }
 }
@@ -20,7 +20,7 @@ resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.eip.id
   subnet_id     = aws_subnet.public1.id
 
-    tags = {
+  tags = {
     Name = "${var.name_tag}-${var.environment}-nat_gateway"
   }
 
@@ -35,16 +35,16 @@ resource "aws_route_table" "private2" {
   }
 }
 resource "aws_route" "r" {
-  route_table_id            = aws_route_table.private2.id
-  nat_gateway_id = aws_nat_gateway.nat_gateway.id
-    destination_cidr_block    = "0.0.0.0/0"
-  depends_on = [aws_route_table.private2]
+  route_table_id         = aws_route_table.private2.id
+  nat_gateway_id         = aws_nat_gateway.nat_gateway.id
+  destination_cidr_block = "0.0.0.0/0"
+  depends_on             = [aws_route_table.private2]
 }
 ### private route table ##############
 resource "aws_internet_gateway" "gw" {
-      vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.main.id
 
-   tags = {
+  tags = {
     Name = "${var.name_tag}-${var.environment}-public-igw"
   }
 }
@@ -90,7 +90,18 @@ resource "aws_route_table_association" "private_subnet4" {
   route_table_id = aws_route_table.private2.id
 }
 
+# ########### manual route table #############
+resource "aws_route_table" "manual-import-rt" {
+  vpc_id = aws_vpc.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
 
+  tags = {
+    Name = "${var.name_tag}-${var.environment}-manual-public-rt"
+  }
+}
 # resource "aws_route_table_association" "nat_gateway_associate" {
 #   gateway_id     = aws_nat_gateway.nat_gateway.id
 #   route_table_id = aws_route_table.private2.id

@@ -10,3 +10,5 @@ terraform workspace new production
 terraform plan -input=false -var-file=default.tfvars
 terraform plan -input=false -var-file=prod.tfvars
 terraform apply -input=false -var-file=prod.tfvars
+terraform import -var-file=default.tfvars aws_route_table.manual-import-rt rtb-0c52f16f3249a066d
+terraform init -reconfigure
