@@ -33,3 +33,9 @@ module "routes_module" {
     subnet_private3_id = module.subnet_module.subnet_private3_id
     subnet_private4_id = module.subnet_module.subnet_private4_id
 }
+
+module "security_groups_module" {
+    source = "./modules/security_groups"
+    name_tag = var.name_tag
+    environment = var.environment
+}
