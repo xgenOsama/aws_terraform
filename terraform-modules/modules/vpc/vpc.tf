@@ -4,3 +4,4 @@ resource "aws_vpc" "main" {
     Name = "${var.name_tag}-${var.environment}-vpc"
   }
 }
+

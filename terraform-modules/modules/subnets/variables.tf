@@ -1,6 +1,6 @@
-variable "vpc_cidr_block" {}
-variable "environment" {}
 variable "name_tag" {}
+variable "my_vpc_id" {}
+variable "environment" {}
 variable "availability_zone_a" {}
 variable "availability_zone_b" {}
 variable "subnet_cidr_block_public_a" {}

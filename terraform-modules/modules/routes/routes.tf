@@ -1,7 +1,7 @@
 ########## route table ###################
 ### private route table ##############
 resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = var.my_vpc_id
 
   tags = {
     Name = "${var.name_tag}-${var.environment}-private-rt"
@@ -18,7 +18,7 @@ resource "aws_eip" "eip" {
 ####### create a nat gateway 
 resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.eip.id
-  subnet_id     = aws_subnet.public1.id
+  subnet_id     = var.subnet_public1_id
 
   tags = {
     Name = "${var.name_tag}-${var.environment}-nat_gateway"
@@ -29,7 +29,7 @@ resource "aws_nat_gateway" "nat_gateway" {
   depends_on = [aws_internet_gateway.gw]
 }
 resource "aws_route_table" "private2" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = var.my_vpc_id
   tags = {
     Name = "${var.name_tag}-${var.environment}-private2-rt"
   }
@@ -42,7 +42,7 @@ resource "aws_route" "r" {
 }
 ### private route table ##############
 resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = var.my_vpc_id
 
   tags = {
     Name = "${var.name_tag}-${var.environment}-public-igw"
@@ -50,7 +50,7 @@ resource "aws_internet_gateway" "gw" {
 }
 
 resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = var.my_vpc_id
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.gw.id
@@ -64,35 +64,35 @@ resource "aws_route_table" "public" {
 ################ subnet association #####################
 ####### public ###############################
 resource "aws_route_table_association" "public_subnet1" {
-  subnet_id      = aws_subnet.public1.id
+  subnet_id      = var.subnet_public1_id
   route_table_id = aws_route_table.public.id
 }
 resource "aws_route_table_association" "public_subnet2" {
-  subnet_id      = aws_subnet.public2.id
+  subnet_id      = var.subnet_public2_id
   route_table_id = aws_route_table.public.id
 }
 ##### private without nat #########################
 resource "aws_route_table_association" "private_subnet1" {
-  subnet_id      = aws_subnet.private1.id
+  subnet_id      =  var.subnet_private1_id
   route_table_id = aws_route_table.private.id
 }
 resource "aws_route_table_association" "private_subnet2" {
-  subnet_id      = aws_subnet.private2.id
+  subnet_id      = var.subnet_private2_id
   route_table_id = aws_route_table.private.id
 }
 ######### private with nat ##########################
 resource "aws_route_table_association" "private_subnet3" {
-  subnet_id      = aws_subnet.private3.id
+  subnet_id      = var.subnet_private3_id
   route_table_id = aws_route_table.private2.id
 }
 resource "aws_route_table_association" "private_subnet4" {
-  subnet_id      = aws_subnet.private4.id
+  subnet_id      = var.subnet_private4_id
   route_table_id = aws_route_table.private2.id
 }
 
 # ########### manual route table #############
 resource "aws_route_table" "manual-import-rt" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = var.my_vpc_id
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.gw.id
