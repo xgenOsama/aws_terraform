@@ -69,3 +69,13 @@ module "lb_module" {
   subnet_private3_id = module.subnet_module.subnet_private3_id
   subnet_private4_id = module.subnet_module.subnet_private4_id
 }
+
+module "rds_module" {
+  source = "./modules/rds"
+  name_tag = var.name_tag
+  environment = var.environment
+  subnet_private1_id = module.subnet_module.subnet_private1_id
+  subnet_private2_id = module.subnet_module.subnet_private2_id
+  my_vpc_id = module.network_module.my_vpc_id
+  
+}
