@@ -8,6 +8,15 @@ resource "aws_route_table" "private" {
   }
 }
 ############# private route table with nat #######################
+### private route table ##############
+resource "aws_route_table" "private3" {
+  vpc_id = var.my_vpc_id
+
+  tags = {
+    Name = "${var.name_tag}-${var.environment}-private3-rt"
+  }
+}
+############# private route table with nat #######################
 ######### create elastic ip
 resource "aws_eip" "eip" {
   vpc = true
@@ -78,6 +87,14 @@ resource "aws_route_table_association" "private_subnet1" {
 }
 resource "aws_route_table_association" "private_subnet2" {
   subnet_id      = var.subnet_private2_id
+  route_table_id = aws_route_table.private.id
+}
+resource "aws_route_table_association" "private_subnet5" {
+  subnet_id      =  var.subnet_private5_id
+  route_table_id = aws_route_table.private.id
+}
+resource "aws_route_table_association" "private_subnet6" {
+  subnet_id      = var.subnet_private6_id
   route_table_id = aws_route_table.private.id
 }
 ######### private with nat ##########################

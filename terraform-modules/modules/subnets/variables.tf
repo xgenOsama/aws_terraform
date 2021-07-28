@@ -9,3 +9,5 @@ variable "subnet_cidr_block_private_a" {}
 variable "subnet_cidr_block_private_b" {}
 variable "subnet_cidr_block_private_a2" {}
 variable "subnet_cidr_block_private_b2" {}
+variable "subnet_cidr_block_private_a3" {}
+variable "subnet_cidr_block_private_b3" {}

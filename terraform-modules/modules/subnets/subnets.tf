@@ -51,3 +51,22 @@ resource "aws_subnet" "private4" {
     Name = "${var.name_tag}-${var.environment}-private-b01"
   }
 }
+
+
+resource "aws_subnet" "private5" {
+  vpc_id            = var.my_vpc_id
+  cidr_block        = var.subnet_cidr_block_private_a3
+  availability_zone = var.availability_zone_a
+  tags = {
+    Name = "${var.name_tag}-${var.environment}-private-a02"
+  }
+}
+
+resource "aws_subnet" "private6" {
+  vpc_id            = var.my_vpc_id
+  cidr_block        = var.subnet_cidr_block_private_b3
+  availability_zone = var.availability_zone_b
+  tags = {
+    Name = "${var.name_tag}-${var.environment}-private-b02"
+  }
+}

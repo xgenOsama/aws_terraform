@@ -1,11 +1,10 @@
 variable "name_tag" {}
-variable "my_vpc_id" {}
 variable "environment" {}
 variable "subnet_public1_id" {}
 variable "subnet_public2_id" {}
-variable "subnet_private1_id" {}
-variable "subnet_private2_id" {}
 variable "subnet_private3_id" {}
 variable "subnet_private4_id" {}
-variable "subnet_private5_id" {}
-variable "subnet_private6_id" {}
+variable "sg_allow_http_alb_sg_id" {}
+variable "my_vpc_id" {}
+variable "aws_instance_backend1_id" {}
+variable "aws_instance_backend2_id" {}
