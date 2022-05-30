@@ -13,7 +13,7 @@ resource "aws_lb" "lb_public" {
   load_balancer_type = "application"
   security_groups    = [var.sg_allow_http_alb_sg_id]
   subnets            = [var.subnet_public1_id,var.subnet_public2_id]
-
+  
   tags = {
     Name =  "${var.name_tag}-${var.environment}-lb-public"
   }
